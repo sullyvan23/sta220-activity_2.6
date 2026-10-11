@@ -1,5 +1,8 @@
-# reprex-avg_days.R
-# Riley: the average days to close looks too low. Can anyone see why?
+# setting working directory
+setwd("~/STA370/work/sta220-activity_2.6")
+
+# greater than 30 is considered late in codebook
+lim <- 30
 
 library(tidyverse)
 
@@ -11,10 +14,12 @@ claims_small <- tribble(
   "X-004",               -1
 )
 
-# I expected an average of 34 days, with half of the claims late.
-# I get an average of 16.5 days and a share late of 0.25.
 claims_small |>
   summarize(
-    avg_days   = mean(days_to_close),
-    share_late = mean(days_to_close > 30)
+    # turns -1s into NAs, then removes NAs from avgs and shares
+    avg_days   = mean(na_if(days_to_close, -1), na.rm = TRUE),
+    share_late = mean(na_if(days_to_close, -1) > 30, na.rm = TRUE)
   )
+
+# saving to output file
+write_csv(claims_small, "output/claims_small_final.csv")
