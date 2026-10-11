@@ -20,7 +20,7 @@ lim <- 30
 q1_2025 <- q1_2025 |> mutate(late = days_to_close > lim)
 q1_2025_by_claim <- q1_2025 |> group_by(claim_type) |> 
                                summarise(claims = n(), 
-                                         still_open = sum(is.na(days_to_close),
+                                         still_open = sum(is.na(days_to_close)),
                                          mean_days = mean(days_to_close, na.rm = TRUE), 
                                          pct_late = mean(late, na.rm = TRUE))
 q1_2025_by_claim
