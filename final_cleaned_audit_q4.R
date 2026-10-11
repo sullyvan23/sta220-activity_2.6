@@ -26,4 +26,4 @@ q4_2025_by_claim <- q4_2025 |> group_by(claim_type) |>
 q4_2025_by_claim
 
 # Save
-write_csv(q4_2025_by_claim,"output/final.csv")
+write_csv(q4_2025_by_claim,"output/q4_final.csv")
